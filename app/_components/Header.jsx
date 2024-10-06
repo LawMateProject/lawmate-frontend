@@ -5,9 +5,9 @@ import React from "react";
 
 function Header() {
   return (
-    <div className="p-2 flex justify-between">
+    <div className="p-2 flex justify-between border-b border-gray-100 shadow-sm ">
       <div className="flex items-center">
-        <Image src={"/logo.png"} alt={"logo"} width={80} height={80} />
+        <Image src={"/logo.png"} alt={"logo"} width={60} height={60} />
         <h2 className="text-4xl ml-2">LawMate</h2>
       </div>
 
