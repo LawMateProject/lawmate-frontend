@@ -1,55 +1,80 @@
+'use client';
+import { useState } from 'react';
+import { useSignInWithEmailAndPassword } from 'react-firebase-hooks/auth';
+import { auth } from '../../firebase/firebase';
+import { useRouter } from 'next/navigation';
 import Image from 'next/image';
-import React from 'react'
 
+const LoginPage = () => {
+   const [email, setEmail] = useState('');
+   const [password, setPassword] = useState('');
+   const [signInWithEmailAndPassword, loading, error] = useSignInWithEmailAndPassword(auth);
+   const router = useRouter();
 
-
-function Page() {
-
+   const handleSignIn = async (e) => {
+      e.preventDefault(); // Prevents the form from refreshing the page
+      try {
+         const res = await signInWithEmailAndPassword(email, password);
+         console.log({ res });
+         sessionStorage.setItem('user', true);
+         setEmail('');
+         setPassword('');
+         router.push('/'); // Redirects to the homepage after sign in
+      } catch (e) {
+         console.error(e); // Logs the error
+      }
+   };
 
    return (
-
-      <form>
+      <div>
          <div className="flex flex-col items-center p-5 pt-0">
-            <Image src={"/logo.png"} alt={"logo"} width={90} height={90} />
-
-
-            <h2 className="text-3xl text-center  m-2 font-semibold text-gray-800">Sign in to your account</h2>
+            <Image src="/logo.png" alt="logo" width={
+               
+            } height={90} />
+            <h2 className="text-3xl text-center m-2 font-semibold text-gray-800">Sign in to your account</h2>
          </div>
 
-         <div className='flex flex-col gap-2'>
-            <label className='text-lg font-medium'>Email:</label>
-            <input
-               className='border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-1 focus:ring-orange-500'
-               type="email"
-               name="email"
+         <form onSubmit={handleSignIn} className="flex flex-col gap-4"> {/* Wrap the inputs in a form */}
+            <div className='flex flex-col gap-2'>
+               <label className='text-lg font-medium'>Email:</label>
+               <input
+                  className='border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-1 focus:ring-orange-500'
+                  type="email"
+                  name="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder='Enter your email'
+                  required // Makes the field required
+               />
+            </div>
 
-               placeholder='Enter your email'
-            />
-         </div>
+            <div className='flex flex-col gap-2'>
+               <label className='text-lg font-medium'>Password:</label>
+               <input
+                  className='border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-1 focus:ring-orange-500'
+                  type="password"
+                  name="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  placeholder='Enter your password'
+                  required // Makes the field required
+               />
+            </div>
 
-         <div className='flex flex-col gap-2 mt-4'>
-            <label className='text-lg font-medium'>Password:</label>
-            <input
-               className='border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-1 focus:ring-orange-500'
-               type="password"
-               name="password"
+            <div className='flex justify-center mt-6'>
+               <button // Use a button element for the form submission
+                  className='bg-orange-500 w-[100%] text-white rounded-md px-4 py-2 hover:bg-orange-600 transition duration-200'
+                  type="submit" // Type set to submit
+                  disabled={loading} // Disable the button while loading
+               >
+                  {loading ? 'Signing in...' : 'Sign in'}
+               </button>
+            </div>
 
-               placeholder='Enter your password'
-            />
-         </div>
-
-         <div className='flex justify-center mt-6'>
-            <input
-               className='bg-orange-500 w-[100%] text-white rounded-md px-4 py-2 hover:bg-orange-600 transition duration-200 cursor-pointer'
-               type="submit"
-               value="Sign in"
-            />
-         </div>
-      </form>
-
+            {error && <p className="text-red-500 text-center">{error.message}</p>} {/* Display error message if exists */}
+         </form>
+      </div>
    );
 }
 
-export default Page;
-
-
+export default LoginPage;
