@@ -13,15 +13,17 @@ const LoginPage = () => {
 
    const handleSignIn = async (e) => {
       e.preventDefault(); // Prevents the form from refreshing the page
+      console.log(email);
+      console.log(password);
       try {
          const res = await signInWithEmailAndPassword(email, password);
          console.log({ res });
          sessionStorage.setItem('user', true);
          setEmail('');
          setPassword('');
-         router.push('/'); // Redirects to the homepage after sign in
+         router.push('/');
       } catch (e) {
-         console.error(e); // Logs the error
+         console.error(e);
       }
    };
 
@@ -32,7 +34,7 @@ const LoginPage = () => {
             <h2 className="text-3xl text-center m-2 font-semibold text-gray-800">Sign in to your account</h2>
          </div>
 
-         <form onSubmit={handleSignIn} className="flex flex-col gap-4"> {/* Wrap the inputs in a form */}
+         <form className="flex flex-col gap-4">
             <div className='flex flex-col gap-2'>
                <label className='text-lg font-medium'>Email:</label>
                <input
@@ -42,7 +44,7 @@ const LoginPage = () => {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder='Enter your email'
-                  required // Makes the field required
+                  required
                />
             </div>
 
@@ -55,15 +57,16 @@ const LoginPage = () => {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder='Enter your password'
-                  required // Makes the field required
+                  required
                />
             </div>
 
             <div className='flex justify-center mt-6'>
-               <button // Use a button element for the form submission
+               <button
                   className='bg-orange-500 w-[100%] text-white rounded-md px-4 py-2 hover:bg-orange-600 transition duration-200'
                   type="submit" // Type set to submit
                   disabled={loading} // Disable the button while loading
+                  onClick={handleSignIn}
                >
                   {loading ? 'Signing in...' : 'Sign in'}
                </button>
