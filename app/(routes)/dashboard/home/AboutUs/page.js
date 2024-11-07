@@ -6,9 +6,9 @@ import React from 'react'
 function AboutUs() {
   return (
     <div>
-      <Header/>
-      <div className=' flex flex-row w-full bg-orange-200 justify-between'>
-        <div className='flex flex-col'>
+      
+      <div className=' flex flex-row w-full bg-secondary justify-between'>
+        <div className='flex flex-col '>
         <h1 className=' font-semibold text-8xl p-10 text-orange-500 mt-20'>About Us</h1>
         <div className=' p-10'>
         <h1 className=' font-medium text-orange-400 text-4xl'>Welcome to LawMate!</h1>
@@ -42,6 +42,13 @@ function AboutUs() {
           <li>Knowledge Base: Access articles, FAQs, and legal glossaries.</li>
           
         </ul>
+      </div>
+
+      <div>
+        <h1 className=' font-medium text-orange-400 text-4xl justify-center text-center mt-5'>Why Choose LawMate?       </h1>
+        <p className=' font-normal text-xl text-center text-slate-600 pt-5   p-10' >With LawMate, legal advice is only a few clicks away.
+           We prioritize confidentiality, convenience, and quality, ensuring every user experience is smooth, secure, and backed by expert knowledge. Whether you need free advice, community support, or a private consultation, 
+          LawMate is here to help.</p>
       </div>
 
     </div>
