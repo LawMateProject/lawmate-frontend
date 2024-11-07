@@ -5,14 +5,12 @@ export default function LoginLayout({ children }) {
    return (
       <div className="flex min-h-screen bg-orange-50">
          {/* Left half - could be used for an image or any other content */}
-         <div className="w-[55%] min-h-screen relative">
-            <Image
-               src="/justicelady1.jpg"  // Replace with your image path
-               alt="Decorative image"
-               layout="fill"
-               className="rounded-l-lg "
-            />
-         </div>
+        
+            <div className="w-[55%] min-h-screen relative">
+               <Image src="/justicelady1.jpg" fill alt="Justice Lady" />
+
+            </div>
+        
 
          {/* Right half - Login form container */}
          <div className="flex items-center justify-center w-[45%] bg-orange-50">
