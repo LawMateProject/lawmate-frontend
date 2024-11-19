@@ -1,8 +1,12 @@
-import Header from "../../_components/Header";
 import React from "react";
+import Community from "./_components/Community";
 
 function Dashboard() {
-  return <div>{/* <Header /> */}</div>;
+  return (
+    <div>
+      <Community />
+    </div>
+  );
 }
 
 export default Dashboard;

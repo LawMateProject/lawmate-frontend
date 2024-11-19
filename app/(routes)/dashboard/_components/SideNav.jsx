@@ -74,28 +74,29 @@ function SideNav() {
         {menuList.map((menu) => (
           <Link key={menu.id} href={menu.path}>
             <h2
-              className={`flex gap-4 items-center text-gray-700 text-sm p-3 mb-1 cursor-pointer rounded-md hover:text-[#F48023] hover:bg-[#FCF4EC] hover:border-l-4 hover:border-[#F48023] transition-all ${path == menu.path &&
+              className={`flex gap-4 items-center text-gray-700 text-sm p-3 mb-1 cursor-pointer rounded-md hover:text-[#F48023] hover:bg-[#FCF4EC] hover:border-l-4 hover:border-[#F48023] transition-all ${
+                path == menu.path &&
                 "text-[#F48023] border-l-4 border-[#F48023] bg-[#FCF4EC]"
-                }`}
+              }`}
             >
               <menu.icon className="text-gray-500" />
               {menu.name}
             </h2>
           </Link>
         ))}
-
       </div>
 
+      {/* Personal Navigator section */}
       {/* Personal Navigator section */}
       <div className="mt-7">
         <h3 className="text-sm text-gray-500 mb-2 ml-3">PERSONAL NAVIGATOR</h3>
         {personalList.map((menu) => (
-          <Link href={menu.path}>
+          <Link key={menu.id} href={menu.path}>
             <h2
-              key={menu.id}
-              className={`flex gap-4 items-center text-gray-700 text-sm p-3 mb-1cursor-pointer rounded-md hover:text-[#F48023] hover:bg-[#FCF4EC] hover:border-l-4 hover:border-[#F48023] transition-all ${path == menu.path &&
+              className={`flex gap-4 items-center text-gray-700 text-sm p-3 mb-1 cursor-pointer rounded-md hover:text-[#F48023] hover:bg-[#FCF4EC] hover:border-l-4 hover:border-[#F48023] transition-all ${
+                path == menu.path &&
                 "text-[#F48023] border-l-4 border-[#F48023] bg-[#FCF4EC]"
-                }`}
+              }`}
             >
               <menu.icon className="text-gray-500" />
               {menu.name}

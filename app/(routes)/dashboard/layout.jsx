@@ -6,7 +6,7 @@ function DashboardLayout({ children }) {
   return (
     <div>
       <Header />
-   
+
       <div className="fixed md:w-64 hidden md:block  border-r border-gray-100 shadow-md">
         <SideNav />
       </div>
