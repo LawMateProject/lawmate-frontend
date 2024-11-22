@@ -1,9 +1,15 @@
-import React from "react";
+"use client";
+import React, { useState } from "react";
 import { Button } from "../../../../components/ui/button";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import Link from "next/link";
 
 function Community() {
+  const [isModalOpen, setIsModalOpen] = useState(false); // State for modal visibility
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
+  const [image, setImage] = useState(null);
+
   const posts = [
     {
       id: 1,
@@ -56,6 +62,28 @@ function Community() {
     { id: 3, title: "Alem.School dashboard", url: "#" },
   ];
 
+  // Handle form submission
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (!title || !description || !image) {
+      alert("Please fill in all fields and upload an image.");
+      return;
+    }
+
+    // Handle form submission logic (e.g., send the data to your backend)
+    const formData = new FormData();
+    formData.append("title", title);
+    formData.append("description", description);
+    formData.append("image", image);
+
+    // Example: Submit the form to an API (e.g., /api/ask-question)
+    alert("Question submitted successfully!");
+    setTitle("");
+    setDescription("");
+    setImage(null);
+    setIsModalOpen(false); // Close the modal after submission
+  };
+
   return (
     <div className="p-5 bg-gray-50">
       {/* Main Content */}
@@ -75,7 +103,12 @@ function Community() {
                 {filter}
               </button>
             ))}
-            <Button className="ml-auto bg-blue-500">Ask a Question</Button>
+            <Button
+              className="ml-auto bg-blue-500"
+              onClick={() => setIsModalOpen(true)}
+            >
+              Ask a Question
+            </Button>
           </div>
 
           <div className="mt-5 space-y-4">
@@ -102,10 +135,6 @@ function Community() {
                     </h3>
                     <span className="text-sm text-gray-500">{post.time}</span>
                   </div>
-                  {/* 
-                  <button className="top-4 right-40 text-gray-400 hover:text-gray-600">
-                    <i className="fas fa-ellipsis-h"></i>
-                  </button> */}
                 </div>
 
                 <Link href={`dashboard/post/${post.id}`}>
@@ -178,6 +207,69 @@ function Community() {
           </div>
         </div>
       </div>
+
+      {/* Modal for Asking a Question */}
+      {isModalOpen && (
+        <div className="fixed inset-0 bg-gray-500 bg-opacity-50 flex justify-center items-center z-50">
+          <div className="bg-white p-6 rounded-md shadow-lg w-96">
+            <h2 className="text-xl font-bold mb-4">Ask a Question</h2>
+
+            <form onSubmit={handleSubmit}>
+              <div className="mb-4">
+                <label className="block text-sm font-medium text-gray-700">
+                  Title
+                </label>
+                <input
+                  type="text"
+                  value={title}
+                  onChange={(e) => setTitle(e.target.value)}
+                  className="w-full p-2 border border-gray-300 rounded mt-1"
+                  required
+                />
+              </div>
+
+              <div className="mb-4">
+                <label className="block text-sm font-medium text-gray-700">
+                  Description
+                </label>
+                <textarea
+                  value={description}
+                  onChange={(e) => setDescription(e.target.value)}
+                  className="w-full p-2 border border-gray-300 rounded mt-1"
+                  required
+                />
+              </div>
+
+              <div className="mb-4">
+                <label className="block text-sm font-medium text-gray-700">
+                  Upload Image
+                </label>
+                <input
+                  type="file"
+                  onChange={(e) => setImage(e.target.files[0])}
+                  className="w-full p-2 border border-gray-300 rounded mt-1"
+                />
+              </div>
+
+              <div className="flex justify-end space-x-3">
+                <button
+                  type="button"
+                  className="text-gray-500"
+                  onClick={() => setIsModalOpen(false)}
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  className="bg-blue-500 text-white py-2 px-4 rounded"
+                >
+                  Submit
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
